@@ -23,7 +23,7 @@ def render_model(model, ax):
     ax.set_yticks(range(1, model.grid.height )) 
 
     # Invertimos el eje Y para que vaya de 24 a 1
-    ax.invert_yaxis()
+    #ax.invert_yaxis()
     
     ax.grid(True, which='both', color='gray', linestyle='--', linewidth=0.5)
 
