@@ -3,11 +3,16 @@ from mesa.space import MultiGrid
 from mesa.time import SimultaneousActivation
 from mesa.datacollection import DataCollector
 from Ferrari import Vehicle
+from Microbus import Microbus
+from Moto import Moto
+from Jeep import Jeeps
+from Toyota import Toyota
+
 from Semaforo import TrafficLight
 from Mapa import Building, Parking, Roundabout, Lane
 
 class TrafficSimulation(Model):
-    def __init__(self, width, height, num_vehicles):
+    def __init__(self, width, height, num_vehicles, num_microbus, num_moto, num_jeeps, num_toyota):
         super().__init__()
         self.width = width
         self.height = height
@@ -95,6 +100,30 @@ class TrafficSimulation(Model):
             self.schedule.add(vehicle)
             x, y = self.random_empty_position()
             self.grid.place_agent(vehicle, (x, y))
+
+        for i in range(num_microbus):
+            microbus = Microbus(self.next_id(), self)
+            self.schedule.add(microbus)
+            x, y = self.random_empty_position()
+            self.grid.place_agent(microbus, (x, y))
+
+        for i in range(num_moto):
+            moto = Moto(self.next_id(), self)
+            self.schedule.add(moto)
+            x, y = self.random_empty_position()
+            self.grid.place_agent(moto, (x, y))
+
+        for i in range(num_jeeps):
+            jeep = Jeeps(self.next_id(), self)
+            self.schedule.add(jeep)
+            x, y = self.random_empty_position()
+            self.grid.place_agent(jeep, (x, y))
+
+        for i in range(num_toyota):
+            toyota = Toyota(self.next_id(), self)
+            self.schedule.add(toyota)
+            x, y = self.random_empty_position()
+            self.grid.place_agent(toyota, (x, y))
         
         self.running = True
         self.datacollector = DataCollector(agent_reporters={"Happiness": "happiness"})

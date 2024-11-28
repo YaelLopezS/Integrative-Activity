@@ -2,11 +2,15 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from Semaforo import TrafficLight
 from Ferrari import Vehicle
+from Microbus import Microbus
+from Moto import Moto
+from Jeep import Jeeps
+from Toyota import Toyota
 from Ferrari_model import TrafficSimulation
 from Mapa import Building, Parking, Roundabout
 
 # Configura el modelo
-model = TrafficSimulation(width=25, height=25, num_vehicles=5)
+model = TrafficSimulation(width=25, height=25, num_vehicles=5, num_microbus=5, num_moto=5, num_jeeps=5, num_toyota=5)
 
 # Configura la figura de Matplotlib
 fig, ax = plt.subplots(figsize=(8, 8))
@@ -45,6 +49,22 @@ def render_model(model, ax):
                 color = "blue" if agent.state == "NORMAL" else "yellow"
                 circle = patches.Circle((x + 0.5, y + 0.5), radius=0.4, color=color, ec="black")  
                 ax.add_patch(circle)
+            elif isinstance(agent, Microbus):
+                color = "#f5367b" if agent.state == "NORMAL" else "#b0eebb"
+                circle = patches.Circle((x + 0.5, y + 0.5), radius=0.4, color=color, ec="black")  
+                ax.add_patch(circle)
+            elif isinstance(agent, Moto):
+                color = "#01fff2" if agent.state == "NORMAL" else "#7513ff"
+                circle = patches.Circle((x + 0.5, y + 0.5), radius=0.4, color=color, ec="black")  
+                ax.add_patch(circle)
+            elif isinstance(agent, Jeeps):
+                color = "#ffa902" if agent.state == "NORMAL" else "#833c0c"
+                circle = patches.Circle((x + 0.5, y + 0.5), radius=0.4, color=color, ec="black")  
+                ax.add_patch(circle)
+            elif isinstance(agent, Toyota):
+                color = "#B21F9A" if agent.state == "FELIZ" else "red"
+                circle = patches.Circle((x + 0.5, y + 0.5), radius=0.4, color=color, ec="black")  
+                ax.add_patch(circle)
             elif isinstance(agent, Building):
                 rect = patches.Rectangle((x, y), 1, 1, color="blue")
                 ax.add_patch(rect)
@@ -56,7 +76,7 @@ def render_model(model, ax):
                 ax.add_patch(rect)
 
 # Bucle de simulación
-for i in range(100):  # Máximo de pasos
+for i in range(300):  # Máximo de pasos
     model.step()
     
     # Renderizar el modelo en cada paso
